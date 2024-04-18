@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Petition
+{% endblock %}
+
+{% block body %}
+	<h1>Edit Petition</h1>
+
+	{{ include('petition/_form.html.twig', {'button_label': 'Update'}) }}
+
+	{{ include('petition/_delete_form.html.twig') }}
+{% endblock %}

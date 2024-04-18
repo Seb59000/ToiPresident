@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Sujet
+{% endblock %}
+
+{% block body %}
+	<div class="section-inner ">
+		<h2 class="section-heading">{{ petition.titre }}</h2>
+		<br>
+		<h3>Créer un nouveau Sujet</h3>
+		{% for message in app.flashes('alert') %}
+			<div class="alert alert-danger">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{{ include('sujet/_form.html.twig') }}
+	</div>
+{% endblock %}

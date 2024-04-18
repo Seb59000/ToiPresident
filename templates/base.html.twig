@@ -1,19 +1,273 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
+<html lang="fr">
 
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
-</html>
+	<head>
+		<meta
+		charset="utf-8">
+		<!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" type="image/ico" href="{{ asset('img/icon.ico') }}"/>
+
+		<title>
+			{% block title %}Toi Président de la République
+			{% endblock %}
+		</title>
+		{# Run `composer require symfony/webpack-encore-bundle`
+																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																								    and uncomment the following Encore helpers to start using Symfony UX #}
+		{% block stylesheets %}
+			<!-- Custom CSS-->
+			<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+			<link href="{{ asset('css/style.css') }}" rel="stylesheet">
+			<script src="{{ asset('chart-master/Chart.js') }}"></script>
+
+		{% endblock %}
+	</head>
+
+	<body>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0 justify-content-center">
+						<li class="nav-item">
+							<a class="nav-link nav-text" aria-current="page" href="{{ path('home') }}">Accueil</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Catégories
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li>
+									<a class="dropdown-item" href="{{ path('categories') }}">Toutes les catégories</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'1'}) }}">Politique</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'2'}) }}">Immigration</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'3'}) }}">Europe</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'4'}) }}">Éducation</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'5'}) }}">Jeunesse</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'6'}) }}">Insertion</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'7'}) }}">Droits fondamentaux</a>
+								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'8'}) }}">Consommation</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'9'}) }}">Économie</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'10'}) }}">Droit du travail</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'11'}) }}">Justice</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'12'}) }}">Sécurité</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'13'}) }}">Commerce extérieur</a>
+								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'14'}) }}">Environnement</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'15'}) }}">Patrimoine</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'16'}) }}">Culture</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'17'}) }}">Défense</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'18'}) }}">Santé</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'19'}) }}">Agriculture</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'20'}) }}">Autre</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle nav-text" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Les candidats
+							</a>
+							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+								<li>
+									<a class="dropdown-item" href="{{ path('candidat_show', {'candidat':'1'}) }}">Jean-Luc Mélenchon</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('candidat_show', {'candidat':'2'}) }}">Anne Hidalgo</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('candidat_show', {'candidat':'3'}) }}">Yannick Jadot</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('candidat_show', {'candidat':'4'}) }}">Emmanuel Macron</a>
+								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li>
+									<a class="dropdown-item" href="{{ path('candidat_show', {'candidat':'5'}) }}">Valérie Pécresse</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('candidat_show', {'candidat':'6'}) }}">Marine Le Pen</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('candidat_show', {'candidat':'7'}) }}">Eric Zemmour</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{ path('candidat_show', {'candidat':'8'}) }}">Fabien Roussel</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link nav-text" aria-current="page" href="{{ path('recherche_new_petition') }}">Proposer une réforme</a>
+						</li>
+						{% if app.user %}
+							<li class="nav-item">
+								<a class="nav-link nav-text" href="{{ path('espaceperso') }}">Espace personnel</a>
+							</li>
+						{% else %}
+							<li class="nav-item">
+								<a class="nav-link nav-text" href="{{ path('app_login') }}">Se connecter</a>
+							</li>
+						{% endif %}
+						<li class="nav-item nav-text">
+							<a class="nav-link" href="{{ path('recherche') }}">Rechercher</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<!-- Page Header-->
+		<div class="title-container">
+			<div class="sub-title-container">
+				<h1 class="titre">Toi Président</h1>
+				<p class="title-text ">Sur ce site proposez des réformes, débattez autour des idées des autres, votez pour ou contre ces propositions</p>
+			</div>
+		</div>
+
+		<header id="headerwrap" class="header-container">
+			<div class="slideshow-container">
+				<div class="mySlides special-max-height no-overlay">
+					<img class="slideshow-img" src="{{ asset('img/bg/elyseed.jpg') }}">
+				</div>
+				<div class="mySlides special-max-height no-overlay">
+					<img class="slideshow-img" src="{{ asset('img/bg/maried.jpg') }}">
+				</div>
+				<div class="mySlides special-max-height no-overlay">
+					<img class="slideshow-img" src="{{ asset('img/bg/eiffeld.jpg') }}">
+				</div>
+			</div>
+		</header>
+		<div class="container"> {% block body %}{% endblock %}
+			</div>
+
+			{% block javascripts %}
+				<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+				<script>
+					var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+var i;
+var slides = document.getElementsByClassName("mySlides");
+for (i = 0; i < slides.length; i++) {
+slides[i].style.display = "none";
+}
+slideIndex++;
+if (slideIndex > slides.length) {
+slideIndex = 1
+}
+slides[slideIndex - 1].style.display = "block";
+setTimeout(showSlides, 8000); // Change image every 2 seconds
+}
+				</script>
+			{% endblock %}
+			{% block footer %}
+				<div id="footer-wrapper">
+					<section class="dark-wrapper">
+						<div class="section-inner">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="widget about-us-widget">
+											<h4 class="widget-title">
+												<strong>Toi
+												</strong>
+												Président</h4>
+											<p>Sur ce site proposez des idées, discutez celles des autres, échangez vos avis et plus encore. Vous avez la parole et l'avenir est entre nos mains. Exprimez vous et Montrez qu'une démocratie plus directe est possible.</p>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="widget">
+											<h4 class="widget-title">
+												Votre programme</h4>
+											<div>
+												<div class="media">
+
+													<div class="media-body">
+														<span class="media-heading">
+															<a href="{{ path('home') }}">Les idées les plus populaires</a>
+														</span>
+														<small class="muted">Les idées qui pourraient constituer votre programme pour la france.</small>
+													</div>
+												</div>
+												<div class="media">
+													<br>
+													<div class="media-body">
+														<span class="media-heading">
+															<a href="{{ path('home') }}">Les dernières pétitions</a>
+														</span>
+														<small class="muted">Retrouvez les dernières propositions postées sur le site.</small>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="widget">
+											<h4 class="widget-title">Catégories populaires</h4>
+											<div class="tagcloud">
+												<a href="{{ path('candidat_show', {'candidat':'1'}) }}" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Jean-Luc Mélenchon</a>
+												<a href="{{ path('candidat_show', {'candidat':'3'}) }}" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Yannick Jadot</a>
+												<a href="{{ path('candidat_show', {'candidat':'7'}) }}" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Eric Zemmour</a>
+												<a href="{{ path('candidat_show', {'candidat':'6'}) }}" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Marine Le Pen</a>
+												<a href="{{ path('candidat_show', {'candidat':'5'}) }}" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Valérie Pécresse</a>
+												<a href="{{ path('cat_show', {'categorie':'2'}) }}" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Immigration</a>
+												<a href="{{ path('cat_show', {'categorie':'14'}) }}" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Environnement</a>
+												<a href="{{ path('cat_show', {'categorie':'1'}) }}" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Politique</a>
+												<a href="{{ path('cat_show', {'categorie':'9'}) }}" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Économie</a>
+												<a href="{{ path('cat_show', {'categorie':'5'}) }}" class="tag-link btn btn-theme btn-white btn-xs smoothie" title="3 topics">Jeunesse</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+			{% endblock %}
+		</body>
+	</html>

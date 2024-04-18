@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Signalement
+{% endblock %}
+
+{% block body %}
+	<div class="section-inner ">
+		<h3 class="section-heading">{{ titre }}</h3>
+		<div class="well">
+			<p>{{ contenu|raw }}</p>
+		</div>
+		<br>
+		<h3 class="section-subheading secondary-font">Veuillez expliquer la nature du problème.</h3>
+
+		{{ include('signalement/_form.html.twig') }}
+	</div>
+{% endblock %}

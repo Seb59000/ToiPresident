@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Topic
+{% endblock %}
+
+{% block body %}
+	<section>
+		<div class="section-inner">
+			<div id="post-content" class="blog-item mb60">
+				<div class="col-sm-10 mb50">
+					<h2 class="section-heading">{{ petition.titre }}</h2>
+				</div>
+				<h3 class="mt60 single-section-title mb30">{{ sujet.titre }}</h3>
+			</div>
+			<!-- Commentaires -->
+			{% for message in app.flashes('commentaire') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+			{% for message in app.flashes('sujet') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+			<div class="media-body">
+				<div class="well mb30">
+					<div class="row">
+						<h6 class="col-sm-10">{{ sujet.pseudo }}</h6>
+						<div class="col-sm-2">
+							<div class=" pull-right">
+								<form method="post" action="{{ path('sujet_soutien', {'sujet': sujet.id, 'petition': petition.id, 'from' : 'sujet_show'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir soutenir ce post?');">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ sujet.id) }}">
+									<button class="btn btn-bleu" title="Soutenir">
+										<img class="img-like" src="{{ asset('img/like.png') }}"><span>
+											{{ sujet.nbsoutiens }}</span>
+									</button>
+								</form>
+							</div>
+						</div>
+					</div>
+					<p>{{ sujet.contenu|raw }}</p>
+					<a href="{{ path('sujet_signalement_new', {'id': sujet.id}) }}">
+						<div class="col-sm-10"></div>
+
+						<small class="pull-right">
+							Signaler</small>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!--/.media-->
+		{% if commentaires|length > 0 %}
+			{% for commentaire in commentaires %}
+				<div class="media-body">
+					<div class="well mb30">
+						<div class="row">
+							<h6 class="col-sm-10">{{ commentaire.pseudo }}</h6>
+							<div class="col-sm-2">
+								<div class=" pull-right">
+									<form method="post" action="{{ path('commentaire_soutien', {'commentaire': commentaire.id}) }}">
+										<input type="hidden" name="_token" value="{{ csrf_token('like' ~ commentaire.id) }}">
+										<button class="btn btn-bleu" title="Soutenir">
+											<img class="img-like" src="{{ asset('img/like.png') }}"><span>
+												{{ commentaire.nbsoutiens }}</span>
+										</button>
+									</form>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<p class="col-sm-10">{{ commentaire.contenu|raw }}</p>
+							<div class="col-sm-2">
+								<br>
+								<a class="pull-right" href="{{ path('commentaire_signalement_new', {'id': commentaire.id}) }}"></small>Signaler</small>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+	{{ include('pagination.html.twig') }}
+{% else %}
+	<div>
+		<div class="media-body">
+			<div class="well col-sm-12">
+				<p>Aucun commentaire</p>
+			</div>
+		</div>
+	</div>
+{% endif %}
+<div id="comments-form" class="row wow">
+	<div class="col-md-12">
+		{% if app.user %}
+			<div class="mt60 mb50 single-section-title">
+				<h3>Laisser un commentaire</h3>
+			</div>
+			<form method="post" action="{{ path('commentaire_post', {'id': sujet.id}) }}">
+				<textarea class="form-control comment-form" name="commentaire" placeholder="Votre commentaire" required></textarea>
+				<input type="hidden" name="_token" value="{{ csrf_token('post' ~ sujet.id) }}">
+				<button class="btn btn-primary pull-right">Poster</button>
+			</form>
+		{% else %}
+			<div class="alert alert-success">
+				<p>Vous devez être connecté pour poster un commentaire.</p>
+				<a href="{{ path('app_login') }}">Se connecter<span></span>
+				</a>
+			</div>
+		{% endif %}
+	</div>
+</div>
+<br>
+<br>
+<br>
+<a class="btn btn-primary pull-left" href="{{ path('petition_show', {'petition': petition.id, 'amendementShow':'false'}) }}">Retour à la pétition</a>
+<br>
+<br>
+<br></div></section>{% endblock %}

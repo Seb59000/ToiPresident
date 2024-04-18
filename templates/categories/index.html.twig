@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toi président
+{% endblock %}
+
+{% block body %}
+	<div class="section-inner ">
+		<h1>Catégories</h1>
+		<br>
+		<h3 class="section-subheading secondary-font">Choisissez votre catégorie parmis la liste:</h3>
+		<br>
+		<ul>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'1'}) }}">Politique</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'2'}) }}">Immigration</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'3'}) }}">Europe</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'4'}) }}">Éducation</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'5'}) }}">Jeunesse</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'6'}) }}">Insertion</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'7'}) }}">Droits fondamentaux</a>
+			</li>
+			<hr>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'8'}) }}">Consommation</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'9'}) }}">Économie</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'10'}) }}">Droit du travail</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'11'}) }}">Justice</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'12'}) }}">Sécurité</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'13'}) }}">Commerce extérieur</a>
+			</li>
+			<hr>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'14'}) }}">Environnement</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'15'}) }}">Patrimoine</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'16'}) }}">Culture</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'17'}) }}">Défense</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'18'}) }}">Santé</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'19'}) }}">Agriculture</a>
+			</li>
+			<li>
+				<a class="dropdown-item" href="{{ path('cat_show', {'categorie':'20'}) }}">Autre</a>
+			</li>
+		</ul>
+	</div>
+{% endblock %}

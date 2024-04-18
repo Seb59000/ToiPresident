@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Signalement Pétition
+{% endblock %}
+
+{% block body %}
+	<div class="section-inner ">
+		<h1>Signalement Pétition</h1>
+
+		{{ include('signalement_petition/_form.html.twig') }}
+
+		<a href="{{ path('signalement_petition_index') }}">back to list</a>
+	</div>
+{% endblock %}

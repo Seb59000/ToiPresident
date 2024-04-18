@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une nouvelle Pétition
+{% endblock %}
+
+{% block body %}
+	<div class="section-inner ">
+		<h1 class="section-heading">Créer une nouvelle Pétition</h1>
+		{% for message in app.flashes('alert') %}
+			<div class="alert alert-danger">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{{ include('petition/_form.html.twig') }}
+	</div>
+{% endblock %}

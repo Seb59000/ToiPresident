@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Pétition
+{% endblock %}
+
+{% block body %}
+	<section>
+		<div class="section-inner">
+			<div class="mb100 wow">
+				<h2 class="section-heading">{{ petition.titre }}</h2>
+				<h3 class="section-subheading secondary-font">Objectif 700 000 signatures</h3>
+				{% for message in app.flashes('success') %}
+					<br>
+					<div class="alert alert-success">
+						{{ message }}
+					</div>
+				{% endfor %}
+			</div>
+			<div class="single-post-content">
+				{{ petition.contenu|raw }}
+				<h3 class="section-subheading secondary-font">Nombre de soutiens:
+					{{ petition.nbsoutiens }}</h3>
+				<br>
+				<br>
+				<div class="row">
+					<div class="col">
+						<form class="stretch" method="post" action="{{ path('petition_opposition', {'petition': petition.id, 'page': page, 'pageT2': pageT2, 'candidat': '1', 'categorie': '1', 'from':'petition_show'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir vous opposer à cette pétition?');">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ petition.id) }}">
+							<button class="btn btnCtr btnex2">Voter contre</button>
+						</form>
+					</div>
+					<div class="col">
+						<form class="stretch" method="post" action="{{ path('petition_soutien', {'petition': petition.id, 'page': page, 'pageT2': pageT2, 'candidat': '1', 'categorie': '1', 'from':'petition_show'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir soutenir cette pétition?');">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ petition.id) }}">
+							<button class="btn btn-bleu btnex2">Voter pour</button>
+						</form>
+					</div>
+				</div>
+				<br>
+				<br>
+				<br>
+				<a name='fb_share' type='button_count' href='https://www.facebook.com/sharer/sharer.php?u={{ url }}' rel='nofollow'>
+					<img class="share-logo" src="{{ asset('img/partage/facebook.png') }}" alt="Facebook">
+				</a>
+				<a name='fb_share' type='button_count' href='https://twitter.com/intent/tweet/?url={{ url }}&text={{ petition.titre }}' rel='nofollow'>
+					<img class="share-logo" src="{{ asset('img/partage/twitter.png') }}" alt="Twitter">
+				</a>
+				<a name='fb_share' type='button_count' href='https://pinterest.com/pin/create/button/?url={{ url }}&description={{ petition.titre }}' rel='nofollow'>
+					<img class="share-logo" src="{{ asset('img/partage/pinterest.png') }}" alt="Pinterest">
+				</a>
+				<br>
+				<br>
+				<a class="btn btn-secundary pull-left" href="{{ path('petition_signalement_new', {'id': petition.id}) }}">Signaler</a>
+
+				<div class="darkblue-panel-perso">
+					{% set proportion = (petition.nbsoutiens / ( petition.nbsoutiens + petition.nbopposants ))*100 %}
+					<h5>Pour:
+						{{ proportion }}%</h5>
+					<canvas id="serverstatus05" height="120" width="120"></canvas>
+					<script>
+						var soutien = {{ petition.nbsoutiens }};
+var opposant = {{ petition.nbopposants }};
+var doughnutData = [
+{
+value: opposant,
+color: "#e84835"
+}, {
+value: soutien,
+color: "#12becc"
+}
+];
+var myDoughnut = new Chart(document.getElementById("serverstatus05").getContext("2d")).Doughnut(doughnutData);
+					</script>
+					<p>Nombre d'opposants :
+						{{ petition.nbopposants }}
+					</p>
+				</div>
+			</div>
+		</div>
+		{% for message in app.flashes('amendement') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{% for message in app.flashes('soutien') %}
+			<div class="alert alert-success">
+				{{ message }}
+			</div>
+		{% endfor %}
+		<div class="container">
+			{% if amendementShow =='true' %}
+				{{ include('petition/tabAmendement.html.twig') }}
+			{% else %}
+				{{ include('petition/tabCommentaire.html.twig') }}
+
+			{% endif %}
+
+
+		</div>
+	</section>
+	<script src="{{ asset('js/tab.js') }}"></script>
+{% endblock %}

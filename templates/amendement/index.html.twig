@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Amendement index{% endblock %}
+
+{% block body %}
+    <h1>Amendement index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Nbsoutiens</th>
+                <th>Nbopposant</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for amendement in amendements %}
+            <tr>
+                <td>{{ amendement.id }}</td>
+                <td>{{ amendement.titre }}</td>
+                <td>{{ amendement.contenu }}</td>
+                <td>{{ amendement.nbsoutiens }}</td>
+                <td>{{ amendement.nbopposant }}</td>
+                <td>{{ amendement.date ? amendement.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('amendement_show', {'id': amendement.id}) }}">show</a>
+                    <a href="{{ path('amendement_edit', {'id': amendement.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('amendement_new') }}">Create new</a>
+{% endblock %}

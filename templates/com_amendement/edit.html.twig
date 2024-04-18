@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ComAmendement
+{% endblock %}
+
+{% block body %}
+	<h1>Edit ComAmendement</h1>
+
+	{{ include('com_amendement/_form.html.twig', {'button_label': 'Update'}) }}
+
+	{{ include('com_amendement/_delete_form.html.twig') }}
+{% endblock %}

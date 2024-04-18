@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit SignalementComAmendement
+{% endblock %}
+
+{% block body %}
+	<h1>Edit SignalementComAmendement</h1>
+
+	{{ include('signalement_com_amendement/_form.html.twig', {'button_label': 'Update'}) }}
+
+	{{ include('signalement_com_amendement/_delete_form.html.twig') }}
+{% endblock %}

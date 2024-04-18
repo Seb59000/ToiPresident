@@ -1,0 +1,54 @@
+<nav aria-label="pagination2">
+	<ul class="pagination">
+		<li class="page-item {{ (pageT2 == 1) ? ' disabled' : '' }}">
+			<a class="page-link" href="{{ (pageT2 > 1) ? '?page=' ~ (pageT2 - 1) : '' }}">
+				<i>Précédent</i>
+			</a>
+		</li>
+		{% set pagesT2 = (total/limit)|round(0,'ceil') %}
+		{% if pageT2 > 3 %}
+			<li class="page-item">
+				<a class="page-link" href="?pageT2=1&page={{ page }}">1</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link">..</a>
+			</li>
+		{% endif %}
+
+		{% for item in (pageT2-2)..pageT2 %}
+			{% if item >0 %}
+				<li class="page-item {{ (pageT2 == item) ? 'active' : '' }}">
+					<a class="page-link" href="?pageT2={{ item }}&page={{ page }}">{{item}}</a>
+				</li>
+			{% endif %}
+		{% endfor %}
+
+		{% for item in (pageT2+1)..(pageT2+2) %}
+			{% if item < (pagesT2+1) %}
+				<li class="page-item">
+					<a class="page-link" href="?pageT2={{ item }}&page={{ page }}">{{item}}</a>
+				</li>
+			{% endif %}
+		{% endfor %}
+
+		{% if page < (pagesT2-2) %}
+			<li class="page-item">
+				<a class="page-link">..</a>
+			</li>
+			<li class="page-item">
+				<a class="page-link" href="?pageT2={{ pagesT2 }}&page={{ page }}">{{pagesT2}}</a>
+			</li>
+		{% endif %}
+
+		<li class="page-item {{ (pageT2 == pagesT2) ? ' disabled' : '' }}">
+			{% if (pageT2 < pagesT2) %}
+				<a class="page-link" href="?pageT2={{ (pageT2 + 1) }}&page={{ page }}">
+
+				{% else %}
+					<a class="page-link" href="">
+					{% endif %}
+					<i>Suivant</i>
+				</a>
+			</li>
+		</li>
+	</nav>

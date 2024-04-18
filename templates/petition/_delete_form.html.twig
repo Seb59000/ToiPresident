@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('petition_delete', {'id': petition.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ petition.id) }}">
+	<button class="btn">Effacer la pétition</button>
+</form>

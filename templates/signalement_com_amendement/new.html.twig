@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SignalementComAmendement{% endblock %}
+
+{% block body %}
+    <h1>Create new SignalementComAmendement</h1>
+
+    {{ include('signalement_com_amendement/_form.html.twig') }}
+
+    <a href="{{ path('signalement_com_amendement_index') }}">back to list</a>
+{% endblock %}

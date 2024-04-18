@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Toi président
+{% endblock %}
+
+{% block body %}
+	<section>
+		<div class="section-inner ">
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+			<div class="mb100 wow">
+				<h2 class="section-heading">Les idées les plus populaires</h2>
+				<h3 class="section-subheading secondary-font">Ces idées pourraient faire l'objet d'un référendum. Objectif 700 000 signatures.</h3>
+			</div>
+			{{ include('petition/_tableau.html.twig') }}
+		</div>
+		<div class="section-inner ">
+
+			<div class="mb100 wow">
+				<h2 class="section-heading">Les dernières propositions</h2>
+			</div>
+
+			{{ include('petition/_tableau2.html.twig') }}
+		</div>
+	</section>
+{% endblock %}

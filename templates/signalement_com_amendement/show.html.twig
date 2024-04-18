@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SignalementComAmendement
+{% endblock %}
+
+{% block body %}
+	<h1>SignalementComAmendement</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Message d'explication</th>
+				<td>{{ signalement_com_amendement.message }}</td>
+			</tr>
+		</tbody>
+		<tr>
+			<th>Contenu du commentaire</th>
+			<td>{{ com_amendement.contenu|raw }}</td>
+		</tr>
+	</table>
+
+	{{ include('com_amendement/_delete_form.html.twig') }}
+
+	<button class="btn">
+		<a href="{{ path('com_amendement_edit', {'commentaire': com_amendement.id, 'signalement': signalement_com_amendement.id}) }}">Modifier le commentaire</a>
+	</button>
+
+	{{ include('signalement_com_amendement/_delete_form.html.twig') }}
+{% endblock %}

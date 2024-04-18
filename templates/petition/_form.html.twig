@@ -1,0 +1,12 @@
+<br>
+{{ form_start(form) }}
+<label for="titre">Titre</label>
+{{ form_widget(form.titre) }}
+<br>
+{{ form_widget(form.contenu) }}
+<br>
+<label for="categorie">Catégorie</label>
+{{ form_widget(form.categorie) }}
+<br>
+<button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

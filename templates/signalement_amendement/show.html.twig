@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SignalementAmendement
+{% endblock %}
+
+{% block body %}
+	<h1>SignalementAmendement</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Message d'explication</th>
+				<td>{{ signalement_amendement.message }}</td>
+			</tr>
+			<tr>
+				<th>Titre de l'amendement</th>
+				<td>{{ amendement.titre }}</td>
+			</tr>
+			<tr>
+				<th>Contenu</th>
+				<td>{{ amendement.contenu|raw }}</td>
+			</tr>
+		</tbody>
+	</table>
+	{{ include('amendement/_delete_form.html.twig') }}
+
+	<button class="btn">
+		<a href="{{ path('amendement_edit', {'id': amendement.id, 'signalement': signalement_amendement.id}) }}">Modifier l'amendement</a>
+	</button>
+
+	{{ include('signalement_amendement/_delete_form.html.twig') }}
+{% endblock %}

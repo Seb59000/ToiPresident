@@ -1,0 +1,123 @@
+<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+	<li class="nav-item" role="presentation">
+		<button class="nav-link btn-primary active" id="discussions-tab" data-bs-toggle="tab" data-bs-target="#discussions" type="button" role="tab" aria-controls="discussions" aria-selected="true">Discussions</button>
+	</li>
+	<li class="nav-item" role="presentation2">
+		<button class="nav-link btn-primary" id="amendements-tab" data-bs-toggle="tab" data-bs-target="#amendements" type="button" role="tab" aria-controls="amendements" aria-selected="false">Amendements</button>
+	</li>
+</ul>
+<div class="tab-content">
+	<div class="tab-pane active" id="discussions" role="tabpanel" aria-labelledby="discussions-tab">
+		<div class="tab-inner">
+			<div id="comments-list" class="gap wow">
+				{% for message in app.flashes('sujet') %}
+					<div class="alert alert-success">
+						{{ message }}
+					</div>
+				{% endfor %}
+				{% if sujets|length > 0 %}
+					{% for sujet in sujets %}
+						<div class="well">
+							<div class="row">
+								<a class="col-sm-10" href="{{ path('sujet_show', {'sujet': sujet.id}) }}">
+									<h5>{{ sujet.titre }}</h5>
+								</a>
+								<div class="col-sm-2">
+									<div class="pull-right">
+										<form method="post" action="{{ path('sujet_soutien', {'sujet': sujet.id, 'petition': petition.id, 'from' : 'petition_show'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir soutenir ce post?');">
+											<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ sujet.id) }}">
+											<button class="btn btn-bleu" title="Soutenir">
+												<img class="img-like" src="{{ asset('img/like.png') }}"><span>
+													{{ sujet.nbsoutiens }}</span>
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+							<p>{{ sujet.contenu|raw }}</p>
+							<a class="btn btn-primary pull-right" href="{{ path('sujet_show', {'sujet': sujet.id}) }}">Lire la suite</a>
+						</div>
+					{% endfor %}
+					{{ include('pagination.html.twig') }}
+				{% else %}
+					<div class="media">
+						<div class="media-body">
+							<div class="well">
+								Aucun commentaire pour cette pétition
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+		<br>
+
+		<a href="{{ path('sujet_new', {'petition': petition.id}) }}">
+			<button class="btn btn-primary pull-right">Poster un commentaire</button>
+		</a>
+		<br>
+		<br>
+		<br>
+		<br>
+	</div>
+	<div class="tab-pane" id="amendements" role="tabpanel" aria-labelledby="amendements-tab">
+		<div class="tab-inner">
+			<div id="comments-list" class="gap ">
+				{% if amendements|length > 0 %}
+					{% for amendement in amendements %}
+						<div class="well">
+							<div class="row">
+								<a class="col-sm-9" href="{{ path('amendement_show', {'amendement': amendement.id}) }}">
+									<h5>{{ amendement.titre }}</h5>
+								</a>
+								<div class="col-sm-3">
+									<div class="pull-right">
+										<div class="line">
+											<form method="post" action="{{ path('amendement_opposition', {'amendement': amendement.id, 'from':'petition_show'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir vous opposer à cet amendement?');">
+												<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ amendement.id) }}">
+												<button class="btn" title="Voter contre">
+													<img class="img-dislike" src="{{ asset('img/dislike.png') }}">
+													<span>
+														{{ amendement.nbopposant }}
+													</span>
+												</button>
+											</form>
+											<form method="post" action="{{ path('amendement_soutien', {'amendement': amendement.id, 'from':'petition_show'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir soutenir cet amendement?');">
+												<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ amendement.id) }}">
+												<button class="btn btn-bleu" title="Voter pour">
+													<img class="img-like" src="{{ asset('img/like.png') }}">
+													<span>
+														{{ amendement.nbsoutiens }}
+													</span>
+												</button>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<p>{{ amendement.contenu|raw }}</p>
+							<a class="btn btn-primary pull-right" href="{{ path('amendement_show', {'amendement': amendement.id}) }}">Lire la suite</a>
+						</div>
+					{% endfor %}
+					{{ include('pagination2.html.twig') }}
+				{% else %}
+					<div class="media">
+						<div class="media-body">
+							<div class="well">
+								Aucun amendement pour cette pétition
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+			<br>
+			<a href="{{ path('amendement_new', {'petition': petition.id}) }}">
+				<button class="btn btn-primary pull-right">Proposer un amendement</button>
+			</a>
+			<br>
+			<br>
+			<br>
+			<br>
+		</div>
+	</div>
+</div>

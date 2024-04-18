@@ -1,0 +1,22 @@
+<br>
+{{ form_start(form) }}
+<label for="titre">Form option candidat</label>
+<label for="titre">Titre</label>
+{{ form_widget(form.titre) }}
+<br>
+{{ form_widget(form.contenu) }}
+<br>
+<label for="categorie">Catégorie</label>
+{{ form_widget(form.categorie) }}
+<br>
+{% for candidat in candidats %}
+	<div class="checkbox mb-3 mt30">
+		<label>
+			<input type="checkbox" name="candidat{{ candidat.id }}" id="candidat{{ candidat.id }}">
+			{{ candidat.nom }}
+		</label>
+	</div>
+{% endfor %}
+<br>
+<button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

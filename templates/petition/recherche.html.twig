@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche
+{% endblock %}
+
+{% block body %}
+	<section>
+		<div class="section-inner ">
+			<div class="mb100 wow">
+				<h2 class="section-heading">Recherche</h2>
+				<h3 class="section-subheading secondary-font">Afin d'éviter les doublons, nous vous invitons à lancer une chercher pour voir si votre pétition n'existe pas déjà.
+				</h3><br>
+				<a class="btn btn-primary pull-right" aria-current="page" href="{{ path('petition_new') }}">Etape suivante</a>
+				<br>
+				<br>
+				<br>
+				<div class="mb100 wow">
+
+					{{ form_start(form) }}
+					{{ form_row(form.mots) }}
+					<br>
+					<button class="btn btn-primary">{{ form_row(form.Rechercher, { 'label': 'Rechercher' }) }}</button>
+					{{ form_end(form) }}
+
+				</div>
+			</div>
+
+
+			{% if petitions is not null %}
+				<div class="mb100 wow">
+					<h2 class="section-heading">Résultat de la recherche</h2>
+				</div>
+				{% for petition in petitions %}
+					<h2>
+						<a href="{{ path('petition_show', {'petition': petition.id}) }}">{{ petition.titre|raw  }}</a>
+					</h2>
+					<p>{{ petition.contenu|raw  }}</p>
+				{% endfor %}
+			{% else %}
+				<div class="mb100 wow">
+					<h3 class="section-subheading secondary-font">Aucun résultat à afficher.</h3>
+				</div>
+			{% endif %}
+		</div>
+	</section>
+{% endblock %}

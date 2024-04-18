@@ -1,0 +1,129 @@
+{% set i = 1 %}
+{% set name = 'status' ~ i %}
+{% for petition in bestPetitions %}
+	{% if i is divisible by(2) %}
+		<div class="col-lg-6 wow fadeIn" data-wow-delay="0.2s">
+			<div class="row ligne-table" data-wow-delay="0.2s">
+				<div class="col-lg-8">
+					<div class="icon-box-1 match-height mb30">
+						<a href="{{ path('petition_show', {'petition': petition.id, 'amendementShow': 'false'}) }}">
+							<h3 class="title title-vignette">{{ petition.titre }}</h3>
+						</a>
+						<div class="content">
+							<div class="vignette">{{ petition.contenu|raw }}</div>
+							<a href="{{ path('petition_show', {'petition': petition.id, 'amendementShow': 'false'}) }}">
+								<p></p>
+								<h6>Lire la suite..</h6>
+							</a>
+						</div>
+						<div class="line">
+							<form class="stretch" method="post" action="{{ path('petition_opposition', {'petition': petition.id, 'page': page, 'pageT2': pageT2, 'candidat': candidat.id, 'categorie': categorie.id, 'from':'candidat_show_categorie'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir vous opposer à cette pétition?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ petition.id) }}">
+								<button class="btn btnCtr btnPC" title="Voter contre">Contre</button>
+							</form>
+							<form class="stretch" method="post" action="{{ path('petition_soutien', {'petition': petition.id, 'page': page, 'pageT2': pageT2, 'candidat': candidat.id, 'categorie': categorie.id, 'from':'candidat_show_categorie'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir soutenir cette pétition?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ petition.id) }}">
+								<button class="btn btn-bleu btnPC" title="Soutenir">Pour</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 mb">
+					<div class="darkblue-panel">
+						{% set proportion = (petition.nbsoutiens / ( petition.nbsoutiens + petition.nbopposants ))*100 %}
+						<h5 class="mb">Pour:
+							{{ proportion|number_format }}%</h5>
+						<canvas id="{{ name }}" height="120" width="120"></canvas>
+						<script>
+							var temp = "{{ name }}";
+var soutien = {{ petition.nbsoutiens }};
+var opposant = {{ petition.nbopposants }};
+var doughnutData = [
+{
+value: opposant,
+color: "#e84835"
+}, {
+value: soutien,
+color: "#12becc"
+}
+];
+var myDoughnut = new Chart(document.getElementById(temp).getContext("2d")).Doughnut(doughnutData);
+						</script>
+						<p>Soutiens :
+							{{ petition.nbsoutiens }}
+						</p>
+					</div>
+					<!--  /darkblue panel -->
+				</div>
+			</div>
+		</div>
+	</div>
+{% else %}
+	<div class="row">
+		<div class="col-lg-6 wow fadeIn" data-wow-delay="0.2s">
+			<div class="row ligne-table" data-wow-delay="0.2s">
+				<div class="col-lg-8">
+					<div class="icon-box-1 match-height mb30">
+						<a href="{{ path('petition_show', {'petition': petition.id, 'amendementShow': 'false'}) }}">
+							<h3 class="title title-vignette">{{ petition.titre }}</h3>
+						</a>
+						<div class="content">
+							<div class="vignette">{{ petition.contenu|raw }}</div>
+							<a href="{{ path('petition_show', {'petition': petition.id, 'amendementShow': 'false'}) }}">
+								<p></p>
+								<h6>Lire la suite..</h6>
+							</a>
+						</div>
+						<div class="line">
+							<form class="stretch" method="post" action="{{ path('petition_opposition', {'petition': petition.id, 'page': page, 'pageT2': pageT2, 'candidat': candidat.id, 'categorie': categorie.id, 'from':'candidat_show_categorie'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir vous opposer à cette pétition?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ petition.id) }}">
+								<button class="btn btnCtr btnPC" title="Voter contre">Contre</button>
+							</form>
+							<form class="stretch" method="post" action="{{ path('petition_soutien', {'petition': petition.id, 'page': page, 'pageT2': pageT2, 'candidat': candidat.id, 'categorie': categorie.id, 'from':'candidat_show_categorie'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir soutenir cette pétition?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ petition.id) }}">
+								<button class="btn btn-bleu btnPC" title="Soutenir">Pour</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 mb">
+					<div class="darkblue-panel">
+						{% set proportion = (petition.nbsoutiens / ( petition.nbsoutiens + petition.nbopposants ))*100 %}
+						<h5 class="mb">Pour:
+							{{ proportion|number_format }}%</h5>
+						<canvas id="{{ name }}" height="120" width="120"></canvas>
+						<script>
+							var temp = "{{ name }}";
+var soutien = {{ petition.nbsoutiens }};
+var opposant = {{ petition.nbopposants }};
+var doughnutData = [
+{
+value: opposant,
+color: "#e84835"
+}, {
+value: soutien,
+color: "#12becc"
+}
+];
+var myDoughnut = new Chart(document.getElementById(temp).getContext("2d")).Doughnut(doughnutData);
+						</script>
+						<p>Soutiens :
+							{{ petition.nbsoutiens }}
+						</p>
+					</div>
+					<!--  /darkblue panel -->
+				</div>
+			</div>
+		</div>
+	{% endif %}
+	{% set i = i + 1 %}
+	{% set name = 'status' ~ i %}
+{% else %}
+	<div class="container">
+		<p>Aucune pétition dans cette catégorie</p>
+	</div>
+{% endfor %}
+
+{% if bestPetitions|length is not divisible by(2) %}
+</div>{% endif %}{% if bestPetitions|length > 0 %}
+<div class="container">{{ include('pagination.html.twig') }}</div>{% endif %}

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidat
+{% endblock %}
+
+{% block body %}
+	<section>
+		<div class="section-inner ">
+			<div class="mb100 wow">
+				<div class='row'>
+					<h2 class="section-heading col-md-10">{{ candidat.nom }}</h2>
+					<div class="dropdown col-md-2">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+							Trier par catégorie
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+							{% for cat in categories %}
+								<li>
+									<a class="dropdown-item" href="{{ path('candidat_show_categorie', {'candidat': candidat.id, 'categorie': cat.id} ) }}">{{ cat.nom }}</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				<h3 class="section-subheading secondary-font">Ces idées pourraient faire l'objet d'un référendum. Objectif 700 000 signatures.</h3>
+			</div>
+
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+
+			{{ include('petition/_tableau_candidat_categorie.html.twig') }}
+		</div>
+	</section>
+{% endblock %}

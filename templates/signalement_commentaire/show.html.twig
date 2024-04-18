@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SignalementCommentaire
+{% endblock %}
+
+{% block body %}
+	<h1>SignalementCommentaire</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Message de signalement</th>
+				<td>{{ signalement_commentaire.message }}</td>
+			</tr>
+			<tr>
+				<th>Contenu du commentaire</th>
+				<td>{{ commentaire.contenu|raw }}</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+	{{ include('commentaire/_delete_form.html.twig') }}
+
+	<p>
+		<button class="btn">
+			<a href="{{ path('commentaire_edit', {'commentaire': commentaire.id, 'signalement': signalement_commentaire.id}) }}">Modifier le commentaire</a>
+		</button>
+	</p>
+
+
+	{{ include('signalement_commentaire/_delete_form.html.twig') }}
+{% endblock %}

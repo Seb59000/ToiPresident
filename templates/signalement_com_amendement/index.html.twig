@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SignalementComAmendement index
+{% endblock %}
+
+{% block body %}
+	<h1>SignalementComAmendement index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Message</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for signalement_com_amendement in signalement_com_amendements %}
+				<tr>
+					<td>{{ signalement_com_amendement.message }}</td>
+					<td>
+						<a href="{{ path('signalement_com_amendement_show', {'id': signalement_com_amendement.id}) }}">show</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

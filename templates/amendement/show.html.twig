@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Amendement
+{% endblock %}
+
+{% block body %}
+	<section>
+		<div class="section-inner">
+			<div id="post-content" class="blog-item mb60">
+				<div class="col-sm-10 mb50">
+					<h2 class="section-heading">{{ petition.titre }}</h2>
+				</div>
+				<h3 class="mt60 single-section-title mb30">{{ amendement.titre }}</h3>
+			</div>
+			<!-- Commentaires -->
+			{% for message in app.flashes('amendement') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+			{% for message in app.flashes('soutien') %}
+				<div class="alert alert-success">
+					{{ message }}
+				</div>
+			{% endfor %}
+			<div class="media-body">
+				<div class="well mb30">
+					<p>{{ amendement.contenu|raw }}</p>
+					<br>
+					<br>
+					<h6>Nombre de soutiens:
+						{{ amendement.nbsoutiens }}</h6>
+
+					<br>
+					<p>
+						<div class="line">
+							<form class="stretch" method="post" action="{{ path('amendement_opposition', {'amendement': amendement.id, 'from':'amendement_show'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir vous opposer à cette pétition?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ amendement.id) }}">
+								<button class="btn btnCtr btnex2">Voter contre</button>
+							</form>
+							<form class="stretch" method="post" action="{{ path('amendement_soutien', {'amendement': amendement.id, 'from':'amendement_show'}) }}" onsubmit="return confirm('Êtes vous sûr de vouloir soutenir cette pétition?');">
+								<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ amendement.id) }}">
+								<button class="btn btn-bleu btnex2">Voter pour</button>
+							</form>
+						</div>
+					</p>
+					<br>
+					<a class="btn btn-secundary pull-left" href="{{ path('amendement_signalement_new', {'id': amendement.id}) }}">
+						Signaler
+					</a>
+					<div class="row mt">
+						<div class="col-md-12 col-sm-12 mb">
+							<div class="darkblue-panel-perso">
+								{% set proportion = (amendement.nbsoutiens / ( amendement.nbsoutiens + amendement.nbopposant ))*100 %}
+								<h5>Pour:
+									{{ proportion }}%</h5>
+								<canvas id="serverstatus05" height="120" width="120"></canvas>
+								<script>
+									var soutien = {{ amendement.nbsoutiens }};
+var opposant = {{ amendement.nbopposant }};
+var doughnutData = [
+{
+value: opposant,
+color: "#e84835"
+}, {
+value: soutien,
+color: "#12becc"
+}
+];
+var myDoughnut = new Chart(document.getElementById("serverstatus05").getContext("2d")).Doughnut(doughnutData);
+								</script>
+								<p>Nombre d'opposants :
+									{{ amendement.nbopposant }}
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--/.media-->
+			{% if commentaires|length > 0 %}
+				{% for commentaire in commentaires %}
+					<div class="media-body">
+						<div class="well mb30">
+							<div class="row">
+								<h6 class="col-sm-10">{{ commentaire.pseudo }}</h6>
+								<div class="col-sm-2">
+									<div class=" pull-right">
+										<form method="post" action="{{ path('com_amendement_soutien', {'comAmendement': commentaire.id}) }}">
+											<input type="hidden" name="_token" value="{{ csrf_token('like' ~ commentaire.id) }}">
+											<button class="btn btn-bleu" title="Soutenir">
+												<img class="img-like" src="{{ asset('img/like.png') }}"><span>
+													{{ commentaire.nbsoutiens }}</span>
+											</button>
+										</form>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<p class="col-sm-10">{{ commentaire.contenu|raw }}</p>
+								<div class="col-sm-2">
+									<br>
+									<a class="pull-right" href="{{ path('com_amendement_signalement_new', {'id': commentaire.id}) }}">
+										Signaler
+									</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+				{{ include('pagination.html.twig') }}
+			{% else %}
+				<div class="media">
+					<div class="media-body">
+						<div class="well col-sm-12">
+							<p>Aucun commentaire</p>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+			<div id="comments-form" class="row">
+				<div class="col-md-12">
+					{% if app.user %}
+						<div class="mt60 mb50 single-section-title">
+							<h3>Laisser un commentaire</h3>
+						</div>
+						<form method="post" action="{{ path('com_amendement_post', {'amendement': amendement.id}) }}">
+							<textarea class="form-control comment-form" name="commentaire" placeholder="Votre commentaire" required></textarea>
+							<input type="hidden" name="_token" value="{{ csrf_token('post' ~ amendement.id) }}">
+							<button class="btn btn-primary pull-right">Poster</button>
+						</form>
+					{% else %}
+						<div class="alert alert-success">
+							<p>Vous devez être connecté pour poster un commentaire.</p>
+							<a href="{{ path('app_login') }}">Se connecter<span></span>
+							</a>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</section>
+	<a class="btn btn-primary pull-left" href="{{ path('petition_show', {'petition': petition.id, 'amendementShow':'true'}) }}">Retour à la pétition</a>
+	<br>
+	<br>
+	<br>
+	<br>
+
+{% endblock %}

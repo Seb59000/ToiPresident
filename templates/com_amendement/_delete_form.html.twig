@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('com_amendement_delete', {'id': com_amendement.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ com_amendement.id) }}">
+	<button class="btn">Effacer le commentaire</button>
+</form>

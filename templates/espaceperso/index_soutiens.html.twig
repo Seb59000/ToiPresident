@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Espace personnel
+{% endblock %}
+
+{% block body %}
+	<div class="section-inner ">
+		<div class="row">
+			<h1 class="col-sm-10">Bonjour
+				{{ app.user.pseudo }}</h1>
+			<div class="col-sm-2 ">
+				<a class="pull-right btn-primary" href="{{ path('app_logout') }}">Se déconnecter</a>
+			</div>
+		</div>
+		<br>
+		{% for message in app.flashes('message') %}
+			<div class="col-xs4">
+				<div class="p-3 my-2 rounded-2 success">{{message}}</div>
+			</div>
+		{% endfor %}
+
+		<div class="container">
+			<ul class="nav nav-tabs nav-fill" id="myTab" role="tablist">
+				<li class="nav-item" role="presentation">
+					<button class="nav-link btn-primary" type="button" role="tab">
+						<a href="{{ path('espaceperso') }}">Mes pétitions</a>
+					</button>
+				</li>
+				<li class="nav-item">
+					<button class="nav-link btn-primary active" id="discussions-tab" data-bs-toggle="tab" data-bs-target="#discussions" type="button" role="tab" aria-controls="discussions" aria-selected="true">
+						Les pétitions que je soutiens
+					</button>
+				</li>
+				<li class="nav-item" role="presentation">
+					<button class="nav-link btn-primary" id="amendements-tab" data-bs-toggle="tab" data-bs-target="#amendements" type="button" role="tab" aria-controls="amendements" aria-selected="false">Mes informations personnelles</button>
+				</li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="discussions" role="tabpanel" aria-labelledby="discussions-tab">
+					<div class="tab-inner">
+						<br>
+						<br>
+						<br>
+						<div id="comments-list" class="gap wow">
+							{% for message in app.flashes('sujet') %}
+								<div class="alert alert-success">
+									{{ message }}
+								</div>
+							{% endfor %}
+
+							<div class="media">
+								<div class="media-body">
+									{{ include('petition/_tableau.html.twig') }}
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="amendements" role="tabpanel" aria-labelledby="amendements-tab">
+					<div class="tab-inner">
+						<div id="comments-list" class="gap ">
+
+							<div class="media">
+								<div class="media-body">
+									<div class="well">
+										<p>email :
+											{{ app.user.email }}
+										</p>
+										<p>nom :
+											{{ app.user.nom }}
+										</p>
+										<p>prenom :
+											{{ app.user.prenom }}
+										</p>
+										<br>
+										<div>
+											<a class="btn btn-primary" href="{{ path('edit_profile') }}">
+												Modifier mes informations |</a>
+											<a class="btn btn-primary" href="{{ path('modif_pass') }}">| Changer mon mot de passe
+											</a>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="{{ asset('js/tab.js') }}"></script>
+{% endblock %}

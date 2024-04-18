@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+<label for="categorie">Petition</label>
+{{ form_widget(form.petition.titre) }}
+<br>
+<label for="categorie">Candidat</label>
+{{ form_widget(form.candidat.nom) }}
+<br>
+<button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

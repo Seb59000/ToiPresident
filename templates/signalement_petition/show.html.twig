@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SignalementPetition
+{% endblock %}
+
+{% block body %}
+	<h1>SignalementPetition</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Message d'explication</th>
+				<td>{{ signalement_petition.message }}</td>
+			</tr>
+			<tr>
+				<th>Titre de la pétition</th>
+				<td>{{ petition.titre }}</td>
+			</tr>
+			<tr>
+				<th>Contenu</th>
+				<td>{{ petition.contenu|raw }}</td>
+			</tr>
+		</tbody>
+	</table>
+	{{ include('petition/_delete_form.html.twig') }}
+
+	<button class="btn">
+		<a href="{{ path('petition_edit', {'id': petition.id, 'signalement': signalement_petition.id}) }}">Modifier la pétition</a>
+	</button>
+	{{ include('signalement_petition/_delete_form.html.twig') }}
+{% endblock %}

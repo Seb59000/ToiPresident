@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SignalementPetition index
+{% endblock %}
+
+{% block body %}
+	<h1>SignalementPetition index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Message</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for signalement_petition in signalement_petitions %}
+				<tr>
+					<td>{{ signalement_petition.message }}</td>
+					<td>
+						<a href="{{ path('signalement_petition_show', {'id': signalement_petition.id}) }}">show</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

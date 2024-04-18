@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SignalementCommentaire{% endblock %}
+
+{% block body %}
+    <h1>Create new SignalementCommentaire</h1>
+
+    {{ include('signalement_commentaire/_form.html.twig') }}
+
+    <a href="{{ path('signalement_commentaire_index') }}">back to list</a>
+{% endblock %}

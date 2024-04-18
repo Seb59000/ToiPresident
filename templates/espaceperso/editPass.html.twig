@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block title %}Modification du mot de passe de
+	{{ app.user.pseudo }}
+{% endblock %}
+
+{% block body %}
+	<div class="section-inner ">
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger">
+				{{ message }}
+			</div>
+		{% endfor %}
+		{{ form_start(form) }}
+		<label>Entrez votre mouveau mot de passe</label>
+		{{ form_widget(form.plainPassword.first) }}
+		<br>
+		<label>Veuillez répéter le mot de passe</label>
+		<div>
+			{{ form_widget(form.plainPassword.second) }}
+		</div>
+		<br>
+		<button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

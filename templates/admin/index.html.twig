@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Admin
+{% endblock %}
+
+{% block body %}
+	<div class="section-inner">
+		<h4>Signalements</h4>
+		<br>
+		<p>
+			<a class="dropdown-item" href="{{ path('signalement_amendement_index') }}">signalements amendements</a>
+		</p>
+		<p>
+			<a class="dropdown-item" href="{{ path('signalement_com_amendement_index') }}">signalements commentaires d'amendements</a>
+		</p>
+		<p>
+			<a class="dropdown-item" href="{{ path('signalement_petition_index') }}">signalements pétition</a>
+		</p>
+		<p>
+			<a class="dropdown-item" href="{{ path('signalement_sujet_index') }}">signalements sujets</a>
+		</p>
+		<p>
+			<a class="dropdown-item" href="{{ path('signalement_commentaire_index') }}">signalements commentaires</a>
+		</p>
+		<br>
+		<hr>
+		<br>
+		<h4>Candidats</h4>
+		<br>
+		<p>
+			<a class="dropdown-item" href="{{ path('candidat_index') }}">Gestion candidats</a>
+		</p>
+		<p>
+			<a class="dropdown-item" href="{{ path('petition_new_option_candidat') }}">Création pétition option candidats</a>
+		</p>
+		<p>
+			<a class="dropdown-item" href="{{ path('recherche_admin') }}">Recherche pour edition pétition</a>
+		</p>
+	</ul>
+</div>{% endblock %}
